@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finance Desk</title>
+  <meta name="description" content="Aktuelle Finanznachrichten und Kennzahlen zu ausgewählten Aktien" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232563eb'/><path d='M7 22l6-7 5 4 7-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" /><path d="M7 22l6-7 5 4 7-9" /></svg>
+      <span>Finance Desk</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="news">Nachrichten</button>
+      <button class="tab" role="tab" data-view="stocks">Aktien</button>
+      <button class="tab" role="tab" data-view="comps">Peer-Vergleich</button>
+    </nav>
+    <span class="clock" id="clock"></span>
+  </header>
+
+  <main>
+    <!-- Nachrichten -->
+    <section class="view" id="view-news" hidden>
+      <div class="toolbar">
+        <div class="chips" id="news-categories"></div>
+        <form class="search-inline" id="news-search">
+          <input type="search" id="news-query" placeholder="Nachrichten suchen, z. B. „Refinanzierung Schuldschein“" maxlength="120" />
+          <select id="news-lang" aria-label="Sprache">
+            <option value="de">DE</option>
+            <option value="en">EN</option>
+          </select>
+          <button type="submit">Suchen</button>
+        </form>
+      </div>
+      <div class="status" id="news-status"></div>
+      <ul class="news-list" id="news-list"></ul>
+    </section>
+
+    <!-- Aktien -->
+    <section class="view" id="view-stocks" hidden>
+      <div class="stock-search">
+        <div class="autocomplete">
+          <input type="search" id="stock-query" placeholder="Unternehmen oder Ticker suchen, z. B. Siemens, SAP.DE, AAPL" autocomplete="off" />
+          <ul class="suggestions" id="suggestions" role="listbox" hidden></ul>
+        </div>
+      </div>
+      <div class="watchlist">
+        <span class="label">Watchlist</span>
+        <div class="chips" id="watchlist"></div>
+      </div>
+
+      <div id="stock-empty" class="empty">
+        <p>Wähle eine Aktie über die Suche oder die Watchlist aus.</p>
+      </div>
+
+      <div id="stock-detail" hidden>
+        <div class="stock-head">
+          <div>
+            <h1 id="sd-name"></h1>
+            <div class="meta" id="sd-meta"></div>
+          </div>
+          <div class="price-box">
+            <div class="price" id="sd-price"></div>
+            <div class="change" id="sd-change"></div>
+            <div class="meta" id="sd-time"></div>
+          </div>
+          <button class="watch-toggle" id="sd-watch"></button>
+        </div>
+        <div class="warning" id="sd-warning" hidden></div>
+
+        <div class="card chart-card">
+          <div class="chart-head">
+            <div class="ranges" id="ranges">
+              <button data-range="1d">1T</button>
+              <button data-range="5d">5T</button>
+              <button data-range="1mo">1M</button>
+              <button data-range="6mo">6M</button>
+              <button data-range="ytd">YTD</button>
+              <button data-range="1y">1J</button>
+              <button data-range="5y">5J</button>
+              <button data-range="max">Max</button>
+            </div>
+            <div class="chart-perf" id="chart-perf"></div>
+          </div>
+          <div class="chart" id="chart"></div>
+        </div>
+
+        <div class="metrics" id="metrics"></div>
+
+        <div class="two-col">
+          <div class="card" id="profile-card">
+            <h2>Unternehmensprofil</h2>
+            <dl class="profile" id="profile"></dl>
+            <p class="description" id="description"></p>
+          </div>
+          <div class="card">
+            <h2>Unternehmensnachrichten</h2>
+            <ul class="news-list compact" id="stock-news"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Peer-Vergleich -->
+    <section class="view" id="view-comps" hidden>
+      <div class="toolbar">
+        <p class="hint">Trading Comps auf Basis der Watchlist. Multiples auf TTM-Basis; Median über alle Werte mit verfügbaren Daten.</p>
+        <button id="comps-refresh">Aktualisieren</button>
+      </div>
+      <div class="status" id="comps-status"></div>
+      <div class="table-wrap">
+        <table class="comps" id="comps-table"></table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Daten: Yahoo Finance (inoffizielle API, ggf. verzögert), RSS-Feeds diverser Medien, Google News. Keine Anlageberatung.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

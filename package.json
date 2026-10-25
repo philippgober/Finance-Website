@@ -1,0 +1,14 @@
+{
+  "name": "finance-website",
+  "version": "1.0.0",
+  "description": "Finanznachrichten und Aktienkennzahlen – schlanke Node.js-Webapp ohne externe Abhängigkeiten",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "license": "MIT"
+}
